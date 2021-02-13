@@ -19,7 +19,7 @@ def taskCount(database, taskSorted=True, sortReversed=True):
             task[i] += row["config"]["tasks"][i]
     #If it should be sorted or not and in which Order
     if taskSorted == True:
-        task = fc.sort(task, sortReversed)
+        task = fc.sort_values(task, sortReversed)
     return task
 
 #Counts and Sorts the game times
@@ -28,7 +28,7 @@ def time_count(db, frequ=5, limit=60):
     #writing the timespans
     for i in range(frequ, limit+1, frequ):
         times[str(i)] = 0
-    times["more"] = 0
+    times["greater"] = 0
     max = times.copy()
     min = times.copy()
     for row in db:
@@ -42,8 +42,8 @@ def time_count(db, frequ=5, limit=60):
         
         #First for the max Game Time
         while max_found == False:
-            if max_number >= limit+1:
-                max["more"] = max["more"] + 1
+            if max_number > limit:
+                max["greater"] = max["greater"] + 1
                 max_stop, max_start = 0, 0
                 max_found = True
             elif max_number in range(max_start, max_stop):
@@ -56,8 +56,8 @@ def time_count(db, frequ=5, limit=60):
         
         #Second for the min Game Time
         while min_found == False:
-            if min_number >= limit+1:
-                min["more"] = min["more"] + 1
+            if min_number > limit:
+                min["greater"] = min["greater"] + 1
                 min_stop, min_start = 0, 0
                 min_found = True
             elif min_number in range(min_start, min_stop):
@@ -68,4 +68,16 @@ def time_count(db, frequ=5, limit=60):
                 min_start = min_stop
                 min_stop = min_stop + frequ
     return max, min
-                    
+
+#Counts and sorts the slide durations
+def slide_count(db, durationsSorted=True, sortReversed=True):
+    durations = {}
+    for row in db:
+        number = str(row["config"]["slideDuration"])
+        if number in durations:
+            durations[number] = durations[number] + 1
+        else:
+            durations[number] = 1
+    if durationsSorted == True:
+        durations = fc.sort_values(durations, sortReversed)
+    return durations
