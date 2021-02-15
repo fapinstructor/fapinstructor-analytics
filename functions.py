@@ -16,7 +16,7 @@ def standart_subs():
         subreddits = subs.read().split(",")
     return subreddits
 
-
+#Writing the Timespans into a file
 def timeSpans(db, frequ=5, limit=60):
     total_min = 0
     total_max = 0
@@ -36,6 +36,6 @@ def timeSpans(db, frequ=5, limit=60):
         _file.write("Total Min Games counted : " + str(total_min) + "\n")
 
 #Sorts a Dictionary... Idk how... It just does; reversed for Hgh-Low
-def sort(sortingDict, reversed=True):
+def sort_values(sortingDict, reversed=True):
     sortedDict = {k: v for k, v in sorted(sortingDict.items(), key=lambda item: item[1], reverse=reversed)}
     return sortedDict

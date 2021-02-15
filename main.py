@@ -4,4 +4,4 @@ import functions as fc
 
 db = ip.interpret("game_config.csv")
 
-fc.timeSpans(db)
+print(ct.slide_count(db))
