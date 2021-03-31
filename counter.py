@@ -85,13 +85,16 @@ def time_count(db, frequ=5, limit=60):
     return max, min
 
 #Counts and sorts the slide durations; returns a dict with, standart sorted, slide duration with times played
-def slide_count(db, durationsSorted=True, sortReversed=True):
+def slide_count(db, durationsSorted=True, sortReversed=True, maxTime=120):
     print(f"{fc.bcolors.HEADER}=====Starting Slide Duration Counter====={fc.bcolors.ENDC}")
     durations = {}
+    durations["Other"] = 0
     print(f"{fc.bcolors.OKBLUE}Starting to count...{fc.bcolors.ENDC}")
     for row in db:
         number = str(row["config"]["slideDuration"])
-        if number in durations:
+        if float(number) > float(maxTime):
+            durations["Other"] += 1
+        elif number in durations:
             durations[number] = durations[number] + 1
         else:
             durations[number] = 1

@@ -66,14 +66,15 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 #Writes the slide durations with the times they've been played to a file
-def slide_Durations(db, sorted=True, sortReversed=True):
+def slide_Durations(db, sorted=True, sortReversed=True, maxTime=120):
     print(f"{bcolors.HEADER}=====Starting writing slide durations to file====={bcolors.ENDC}")
     with open("slide_durations.txt", "w") as slides:
         print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
         slides.write("Slide Durations; Time : times played\n\n")
-        durations = ct.slide_count(db, sorted, sortReversed)
+        durations = ct.slide_count(db, sorted, sortReversed, maxTime)
         for o, p in durations.items():
             slides.write(f"{str(o)} : {str(p)}\n")
+        del durations["Other"]
         slides.write(f"\nMax-Duration: {max(durations.keys())}\n")
         slides.write(f"Min-Duration: {min(durations.keys())}\n")
         print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
