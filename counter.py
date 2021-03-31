@@ -1,8 +1,8 @@
 import functions as fc
 
-#This module is for getting the data, mostly unsorted
+#This module is for getting the data, standart sorted
 
-#Counts how many Games are public, gives back int with the times played
+#Counts how many Games are public; gives back an int with the times played
 def isPublicCounter(db):
     print(f"{fc.bcolors.HEADER}=====Starting Public Games Counter====={fc.bcolors.ENDC}")
     public_true = 0
@@ -15,7 +15,7 @@ def isPublicCounter(db):
 
     return public_true
 
-#Counts the Options with the times they've been played; returns dict with, standart sorted, tasks and times played
+#Counts the Options with the times they've been played; returns dict with, standart sorted, tasks with times played
 def taskCount(database, taskSorted=True, sortReversed=True):
     print(f"{fc.bcolors.HEADER}=====Starting Options Counter====={fc.bcolors.ENDC}")
     task = database[0]["config"]["tasks"]
@@ -31,7 +31,7 @@ def taskCount(database, taskSorted=True, sortReversed=True):
     print(f"{fc.bcolors.HEADER}=====Ending Options Counter=====\n{fc.bcolors.ENDC}")
     return task
 
-#Counts and Sorts the game times
+#Counts and Sorts the game times; returns two dicts: 1. Maximum Game times with times played, 2. Minimum Game times with times played
 def time_count(db, frequ=5, limit=60):
     print(f"{fc.bcolors.HEADER}=====Starting Time Counter====={fc.bcolors.ENDC}")
     times = {}
@@ -84,7 +84,7 @@ def time_count(db, frequ=5, limit=60):
     print(f"{fc.bcolors.HEADER}=====Ending Time Counter=====\n{fc.bcolors.ENDC}")
     return max, min
 
-#Counts and sorts the slide durations
+#Counts and sorts the slide durations; returns a dict with, standart sorted, slide duration with times played
 def slide_count(db, durationsSorted=True, sortReversed=True):
     print(f"{fc.bcolors.HEADER}=====Starting Slide Duration Counter====={fc.bcolors.ENDC}")
     durations = {}
@@ -100,3 +100,4 @@ def slide_count(db, durationsSorted=True, sortReversed=True):
         durations = fc.sort_values(durations, sortReversed)
     print(f"{fc.bcolors.HEADER}=====Ending Slide Duration Counter\n{fc.bcolors.ENDC}")
     return durations
+
