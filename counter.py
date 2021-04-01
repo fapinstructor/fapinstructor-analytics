@@ -101,6 +101,22 @@ def slide_count(db, durationsSorted=True, sortReversed=True, maxTime=120):
     print(f"{fc.bcolors.OKBLUE}Done counting durations.{fc.bcolors.ENDC}")
     if durationsSorted == True:
         durations = fc.sort_values(durations, sortReversed)
-    print(f"{fc.bcolors.HEADER}=====Ending Slide Duration Counter\n{fc.bcolors.ENDC}")
+    print(f"{fc.bcolors.HEADER}=====Ending Slide Duration Counter=====\n{fc.bcolors.ENDC}")
     return durations
 
+#Counts and sorts the minimum edges; returns a dict with, standart sorted, minimum edges with times played
+def minEdge_count(db, edgesSorted=True, sortReversed=True):
+    print(f"{fc.bcolors.HEADER}=====Starting minimum Edge Counter====={fc.bcolors.ENDC}")
+    minEdges = {}
+    print(f"{fc.bcolors.OKBLUE}Starting to count...{fc.bcolors.ENDC}")
+    for row in db:
+        edges = str(row["config"]["minimumEdges"])
+        if edges in minEdges:
+            minEdges[edges] = minEdges[edges] + 1
+        else:
+            minEdges[edges] = 1
+    print(f"{fc.bcolors.OKBLUE}Done counting durations.{fc.bcolors.ENDC}")
+    if edgesSorted == True:
+        minEdges = fc.sort_values(minEdges, sortReversed)
+    print(f"{fc.bcolors.HEADER}=====Ending minimum Edge Counter=====\n{fc.bcolors.ENDC}")
+    return minEdges

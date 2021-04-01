@@ -9,7 +9,7 @@ if db_name == "":
     db_name = "game_config.csv"
 db = ip.interpret(db_name)
 
-fc.slide_Durations(db)
+fc.minimumEdges(db)
 
 time_taken = time.time() - start_time
 print(f"==================================================\n"

@@ -79,3 +79,15 @@ def slide_Durations(db, sorted=True, sortReversed=True, maxTime=120):
         slides.write(f"Min-Duration: {min(durations.keys())}\n")
         print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
     print(f"{bcolors.HEADER}=====Ending writing slide durations to file=====\n{bcolors.ENDC}")
+
+#Writes the minimum Edges with the times they've been played to a file
+def minimumEdges(db, sorted=True, sortReversed=True):
+    print(f"{bcolors.HEADER}=====Starting writing minimum Edges to file====={bcolors.ENDC}")
+    with open("minimum_edges.txt", "w") as edges:
+        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
+        edges.write("Minimum Edges; Edges : times played\n\n")
+        edges_dict = ct.minEdge_count(db, sorted, sortReversed)
+        for o, p in edges_dict.items():
+            edges.write(f"{str(o)} : {str(p)}\n")
+        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
+    print(f"{bcolors.HEADER}=====Ending writing minimum Edges to file=====\n{bcolors.ENDC}")
