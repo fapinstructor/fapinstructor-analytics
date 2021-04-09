@@ -2,7 +2,7 @@ import counter as ct
 
 #This module is for the Functions to write the Data to a file and make it clearly arranged
 
-#Writes the Options with the times they've been played to a file
+#Writes the options with the times they've been played to a file
 def rawTimesPlayed(db, taskSorted=True, sortReversed=True):
     print(f"{bcolors.HEADER}=====Starting writing times to file====={bcolors.ENDC}")
     with open("raw_times_played.txt", "w") as _file:
@@ -64,3 +64,30 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+#Writes the slide durations with the times they've been played to a file
+def slide_Durations(db, sorted=True, sortReversed=True, maxTime=120):
+    print(f"{bcolors.HEADER}=====Starting writing slide durations to file====={bcolors.ENDC}")
+    with open("slide_durations.txt", "w") as slides:
+        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
+        slides.write("Slide Durations; Time : times played\n\n")
+        durations = ct.slide_count(db, sorted, sortReversed, maxTime)
+        for o, p in durations.items():
+            slides.write(f"{str(o)} : {str(p)}\n")
+        del durations["Other"]
+        slides.write(f"\nMax-Duration: {max(durations.keys())}\n")
+        slides.write(f"Min-Duration: {min(durations.keys())}\n")
+        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
+    print(f"{bcolors.HEADER}=====Ending writing slide durations to file=====\n{bcolors.ENDC}")
+
+#Writes the minimum Edges with the times they've been played to a file
+def minimumEdges(db, sorted=True, sortReversed=True):
+    print(f"{bcolors.HEADER}=====Starting writing minimum Edges to file====={bcolors.ENDC}")
+    with open("minimum_edges.txt", "w") as edges:
+        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
+        edges.write("Minimum Edges; Edges : times played\n\n")
+        edges_dict = ct.minEdge_count(db, sorted, sortReversed)
+        for o, p in edges_dict.items():
+            edges.write(f"{str(o)} : {str(p)}\n")
+        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
+    print(f"{bcolors.HEADER}=====Ending writing minimum Edges to file=====\n{bcolors.ENDC}")
