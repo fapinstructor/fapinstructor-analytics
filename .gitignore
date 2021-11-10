@@ -142,3 +142,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+#Own
+raw_times_played.txt
+standart_subs.txt
+timespans.txt
