@@ -15,7 +15,7 @@ def rawTimesPlayed(db, taskSorted=True, sortReversed=True):
     print(f"{bcolors.HEADER}=====Ending writing times to file=====\n{bcolors.ENDC}")
 
 #Giving back a list with the standart subs
-def standard_subs():
+def standard_subs()-> list:
     print(f"{bcolors.HEADER}=====Starting reading standard subs====={bcolors.ENDC}")
     with open("standart_subs.txt", "r") as subs:
         print(f"{bcolors.OKBLUE}Starting reading...{bcolors.ENDC}")
@@ -29,25 +29,25 @@ def timeSpans(db, frequ=5, limit=60):
     print(f"{bcolors.HEADER}=====Starting to write Timespans=====")
     total_min = 0
     total_max = 0
-    time_dicts = ct.time_count(db, frequ, limit)
+    time_dict = ct.time_count(db, frequ, limit)
     with open("timespans.txt", "w") as _file:
         print(f"{bcolors.OKBLUE}Writing to file...{bcolors.ENDC}")
-        _file.write("Maximum Game Times:\n")
-        #write max games
-        for i, j in time_dicts[0].items():
-            _file.write(str(i) + " : " + str(j) + "\n")
-            total_max += j
-        _file.write("\nMinimum Game Time:\n")
+        _file.write("Minimum Game Times:\n")
         #write min games
-        for n, u in time_dicts[1].items():
-            _file.write(str(n) + " : " + str(u) + "\n")
-            total_min += u
+        for key in time_dict['min']:
+            _file.write(key + " : " + time_dict['min'][key] + "\n")
+            total_min += time_dict['min'][key]
+        _file.write("\nMaximum Game Time:\n")
+        #write max games
+        for key in time_dict['max']:
+            _file.write(key + " : " + time_dict['max'][key] + "\n")
+            total_max += time_dict['max'][key]
         _file.write("\nTotal Max Games counted : " + str(total_max) + "\n")
         _file.write("Total Min Games counted : " + str(total_min) + "\n")
     print(f"{bcolors.HEADER}=====Done writing Timespans=====\n{bcolors.ENDC}")
 
 #Sorts a Dictionary... Idk how... It just does; reversed for High-Low
-def sort_values(sortingDict, reversed=True):
+def sort_values(sortingDict : dict, reversed=True)-> dict:
     print(f"{bcolors.OKBLUE}Sorting...{bcolors.ENDC}")
     sortedDict = {k: v for k, v in sorted(sortingDict.items(), key=lambda item: item[1], reverse=reversed)}
     print(f"{bcolors.OKBLUE}Done sorting.{bcolors.ENDC}")
