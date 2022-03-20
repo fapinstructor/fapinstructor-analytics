@@ -147,3 +147,4 @@ cython_debug/
 raw_times_played.txt
 standart_subs.txt
 timespans.txt
+*.csv

@@ -2,36 +2,26 @@ import counter as ct
 
 #This module is for the Functions to write the Data to a file and make it clearly arranged
 
-#Writes the options with the times they've been played to a file
 def rawTimesPlayed(db, taskSorted=True, sortReversed=True):
-    print(f"{bcolors.HEADER}=====Starting writing times to file====={bcolors.ENDC}")
+    """Writes the options with the times they've been played to a file"""
     with open("raw_times_played.txt", "w") as _file:
-        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
         for i, j in ct.taskCount(db, taskSorted, sortReversed).items():
             _file.write(str(i) + " : " + str(j) + "\n")
         _file.write("\n" + "Public Games: " + str(ct.isPublicCounter(db)) + "\n")
         _file.write("Number of Games: " + str(len(db)))
-        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
-    print(f"{bcolors.HEADER}=====Ending writing times to file=====\n{bcolors.ENDC}")
 
-#Giving back a list with the standart subs
 def standard_subs()-> list:
-    print(f"{bcolors.HEADER}=====Starting reading standard subs====={bcolors.ENDC}")
+    """Giving back a list with the standart subs"""
     with open("standart_subs.txt", "r") as subs:
-        print(f"{bcolors.OKBLUE}Starting reading...{bcolors.ENDC}")
         subreddits = subs.read().split(",")
-    print(f"{bcolors.HEADER}Done reading.{bcolors.ENDC}")
-    print(f"{bcolors.HEADER}=====Ending reading standard subs=====\n{bcolors.ENDC}")
     return subreddits
 
-#Writing the Timespans into a file
 def timeSpans(db, frequ=5, limit=60):
-    print(f"{bcolors.HEADER}=====Starting to write Timespans=====")
+    """Writing the Timespans into a file"""
     total_min = 0
     total_max = 0
     time_dict = ct.time_count(db, frequ, limit)
     with open("timespans.txt", "w") as _file:
-        print(f"{bcolors.OKBLUE}Writing to file...{bcolors.ENDC}")
         _file.write("Minimum Game Times:\n")
         #write min games
         for key in time_dict['min']:
@@ -44,32 +34,15 @@ def timeSpans(db, frequ=5, limit=60):
             total_max += time_dict['max'][key]
         _file.write("\nTotal Max Games counted : " + str(total_max) + "\n")
         _file.write("Total Min Games counted : " + str(total_min) + "\n")
-    print(f"{bcolors.HEADER}=====Done writing Timespans=====\n{bcolors.ENDC}")
 
-#Sorts a Dictionary... Idk how... It just does; reversed for High-Low
 def sort_values(sortingDict : dict, reversed=True)-> dict:
-    print(f"{bcolors.OKBLUE}Sorting...{bcolors.ENDC}")
+    """Sorts a Dictionary... Idk how... It just does; reversed for High-Low"""
     sortedDict = {k: v for k, v in sorted(sortingDict.items(), key=lambda item: item[1], reverse=reversed)}
-    print(f"{bcolors.OKBLUE}Done sorting.{bcolors.ENDC}")
     return sortedDict
 
-#Some colors for better console feedback
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-#Writes the slide durations with the times they've been played to a file
 def slide_Durations(db, sorted=True, sortReversed=True, maxTime=120):
-    print(f"{bcolors.HEADER}=====Starting writing slide durations to file====={bcolors.ENDC}")
+    """Writes the slide durations with the times they've been played to a file"""
     with open("slide_durations.txt", "w") as slides:
-        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
         slides.write("Slide Durations; Time : times played\n\n")
         durations = ct.slide_count(db, sorted, sortReversed, maxTime)
         for o, p in durations.items():
@@ -77,17 +50,18 @@ def slide_Durations(db, sorted=True, sortReversed=True, maxTime=120):
         del durations["Other"]
         slides.write(f"\nMax-Duration: {max(durations.keys())}\n")
         slides.write(f"Min-Duration: {min(durations.keys())}\n")
-        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
-    print(f"{bcolors.HEADER}=====Ending writing slide durations to file=====\n{bcolors.ENDC}")
 
-#Writes the minimum Edges with the times they've been played to a file
 def minimumEdges(db, sorted=True, sortReversed=True):
-    print(f"{bcolors.HEADER}=====Starting writing minimum Edges to file====={bcolors.ENDC}")
+    """Writes the minimum Edges with the times they've been played to a file"""
     with open("minimum_edges.txt", "w") as edges:
-        print(f"{bcolors.OKBLUE}Writing...{bcolors.ENDC}")
         edges.write("Minimum Edges; Edges : times played\n\n")
         edges_dict = ct.minEdge_count(db, sorted, sortReversed)
         for o, p in edges_dict.items():
             edges.write(f"{str(o)} : {str(p)}\n")
-        print(f"{bcolors.OKBLUE}Done writing.{bcolors.ENDC}")
-    print(f"{bcolors.HEADER}=====Ending writing minimum Edges to file=====\n{bcolors.ENDC}")
+
+def all(db):
+    """Just run all functions available to get all data"""
+    rawTimesPlayed(db)
+    timeSpans(db)
+    slide_Durations(db)
+    minimumEdges(db)

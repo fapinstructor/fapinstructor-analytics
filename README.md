@@ -1,0 +1,1 @@
+This is just messy and could be way better coded. If you want to improve it feel free to fork and make a PR to this. Thanks, Cheers.
