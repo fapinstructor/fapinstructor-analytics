@@ -25,12 +25,12 @@ def timeSpans(db, frequ=5, limit=60):
         _file.write("Minimum Game Times:\n")
         #write min games
         for key in time_dict['min']:
-            _file.write(key + " : " + time_dict['min'][key] + "\n")
+            _file.write(str(key) + " : " + str(time_dict['min'][key]) + "\n")
             total_min += time_dict['min'][key]
         _file.write("\nMaximum Game Time:\n")
         #write max games
         for key in time_dict['max']:
-            _file.write(key + " : " + time_dict['max'][key] + "\n")
+            _file.write(str(key) + " : " + str(time_dict['max'][key]) + "\n")
             total_max += time_dict['max'][key]
         _file.write("\nTotal Max Games counted : " + str(total_max) + "\n")
         _file.write("Total Min Games counted : " + str(total_min) + "\n")

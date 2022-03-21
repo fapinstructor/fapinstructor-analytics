@@ -145,6 +145,7 @@ cython_debug/
 
 #Own
 raw_times_played.txt
-standart_subs.txt
 timespans.txt
+slide_durations.txt
+minimum_edges.txt
 *.csv
