@@ -1,5 +1,4 @@
 import interpreter as ip
-import counter as ct
 import functions as fc
 import time
 
